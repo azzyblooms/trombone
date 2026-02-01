@@ -1,67 +1,45 @@
 let slide = document.getElementById('slide');
 let position = 1;
+let activeKey = null;
 const Bb = new Audio('audio/bbtrombone.mp3');
 Bb.preservesPitch = false;
 
+function getPlaybackRate(key, position, maxPosition = 100) {
+    const baseFactors = {
+        z: 1,
+        x: 1.498,
+        c: 2,
+        v: 2.52,
+        b: 2.998,
+        n: 3.567
+    };
+    const semitoneLimit = 6;
+    const minFactor = Math.pow(2, -semitoneLimit / 12);
+    const step = 0.125 * 6 / (maxPosition - 1);
+    const factor = Math.pow(minFactor, (position - 1) / (maxPosition - 1));
+    return baseFactors[key] * factor;
+}
+
 slide.addEventListener('input', () => {
     position = Number(slide.value);
-    console.log(position, Bb.playbackRate);
+    if (activeKey) {
+        Bb.playbackRate = getPlaybackRate(activeKey, position, 100);
+    }
 })
 addEventListener('keydown', () => {
     if(event.repeat) return;
+    if(!['z', 'x', 'c', 'v', 'b', 'n'].includes(event.key)) return;
+    activeKey = event.key;
     Bb.currentTime = 0;
-    if(event.key === 'z') {
-            if(position === 1) {
-        Bb.playbackRate = 1;
-    }
-    if(position === 2) {
-        Bb.playbackRate = 0.944;
-    }
-    if(position === 3) {
-        Bb.playbackRate = 0.891;
-    }
-    if(position === 4) {
-        Bb.playbackRate = 0.841;
-    }
-    if(position === 5) {
-        Bb.playbackRate = 0.794;
-    }
-    if(position === 6) {
-        Bb.playbackRate = 0.749;
-    }
-    if(position === 7) {
-        Bb.playbackRate = 0.707;
-    }
-    }
-    if(event.key === 'x') {
-            if(position === 1) {
-        Bb.playbackRate = 1.498;
-    }
-    if(position === 2) {
-        Bb.playbackRate = 1.414;
-    }
-    if(position === 3) {
-        Bb.playbackRate = 1.335;
-    }
-    if(position === 4) {
-        Bb.playbackRate = 1.26;
-    }
-    if(position === 5) {
-        Bb.playbackRate = 1.189;
-    }
-    if(position === 6) {
-        Bb.playbackRate = 1.122;
-    }
-    if(position === 7) {
-        Bb.playbackRate = 1.059;
-    }
-    }
-    Bb.play()
-    console.log(position, Bb.playbackRate);
+    Bb.playbackRate = getPlaybackRate(activeKey, position);
+    Bb.play();
+    console.log(position, Bb.playbackRate, 100);
 });
 addEventListener('keyup', (event) => {
-    if(event.key == 'z' || event.key == 'x') {
+    if(event.key === activeKey) {
         Bb.pause();
         Bb.currentTime = 0;
+        activeKey = null;
+
     }
 });

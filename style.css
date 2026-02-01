@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    font-family: cursive;
 }
 #slide {
     width: 440px;
@@ -7,14 +8,12 @@ body {
     appearance:none;
     height: 128px;
     background: url(images/fullbone.png) no-repeat center;
-    background-size:contain;
 }
 #slide::-webkit-slider-thumb {
     -webkit-appearance: none;
     transform:translateY(25px) translateX(100px);
     appearance:none;
     background: url(images/altslide.png) no-repeat center;
-    background-size:contain;
     width:300px;
     height:128px;
     border:none;
