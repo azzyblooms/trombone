@@ -4,7 +4,7 @@ let activeKey = null;
 const Bb = new Audio('audio/bbtrombone.mp3');
 Bb.preservesPitch = false;
 
-function getPlaybackRate(key, position, maxPosition = 100) {
+function getPlaybackRate(key, position, maxPosition = 7) {
     const baseFactors = {
         z: 1,
         x: 1.498,
@@ -23,7 +23,7 @@ function getPlaybackRate(key, position, maxPosition = 100) {
 slide.addEventListener('input', () => {
     position = Number(slide.value);
     if (activeKey) {
-        Bb.playbackRate = getPlaybackRate(activeKey, position, 100);
+        Bb.playbackRate = getPlaybackRate(activeKey, position, 7);
     }
 })
 addEventListener('keydown', () => {
@@ -33,7 +33,7 @@ addEventListener('keydown', () => {
     Bb.currentTime = 0;
     Bb.playbackRate = getPlaybackRate(activeKey, position);
     Bb.play();
-    console.log(position, Bb.playbackRate, 100);
+    console.log(position, Bb.playbackRate, 7);
 });
 addEventListener('keyup', (event) => {
     if(event.key === activeKey) {
@@ -42,4 +42,41 @@ addEventListener('keyup', (event) => {
         activeKey = null;
 
     }
-});
+})
+addEventListener('keydown', () => {
+    if(event.key == 1) {
+        slide.value = 1;
+        position = 1;
+        Bb.playbackRate = getPlaybackRate(activeKey, position, 7);
+    }
+    if(event.key == 2) {
+        slide.value = 2;
+        position = 2;
+        Bb.playbackRate = getPlaybackRate(activeKey, position, 7);
+    }
+    if(event.key == 3) {
+        slide.value = 3;
+        position = 3;
+        Bb.playbackRate = getPlaybackRate(activeKey, position, 7);
+    }
+    if(event.key == 4) {
+        slide.value = 4;
+        position = 4;
+        Bb.playbackRate = getPlaybackRate(activeKey, position, 7);
+    }
+    if(event.key == 5) {
+        slide.value = 5;
+        position = 5;
+        Bb.playbackRate = getPlaybackRate(activeKey, position, 7);
+    }
+    if(event.key == 6) {
+        slide.value = 6;
+        position = 6;
+        Bb.playbackRate = getPlaybackRate(activeKey, position, 7);
+    }
+    if(event.key == 7) {
+        slide.value = 7;
+        position = 7;
+        Bb.playbackRate = getPlaybackRate(activeKey, position, 7);
+    }
+})
