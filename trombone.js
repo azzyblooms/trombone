@@ -1,19 +1,29 @@
 let slide = document.getElementById('slide');
 let position = 1;
 let activeKey = null;
-const Bb = new Audio('audio/bbtrombone.mp3');
+const Bb = new Audio('audio/bb1trombone.mp3');
 Bb.preservesPitch = false;
 
 function getPlaybackRate(key, position, maxPosition = 7) {
     const baseFactors = {
-        Shift: 0.5,
+        Shift: 1,
+        z: 2,
+        x: 3,
+        c: 4,
+        v: 5,
+        b: 6,
+        n: 7,
+        m: 8
+        //just intonation
+/*      Shift: 0.5,
         z: 1,
         x: 1.498,
         c: 2,
         v: 2.52,
         b: 2.998,
         n: 3.567,
-        m: 4
+        m: 4*/
+        //12-tet
     };
     const semitoneLimit = 6;
     const minFactor = Math.pow(2, -semitoneLimit / 12);
