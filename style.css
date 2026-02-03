@@ -109,3 +109,18 @@ body {
     margin-bottom:10px;
 
 }
+#tuningButton {
+    font-family:cursive;
+    color:white;
+    padding:5px;
+    transition: ease(500ms);
+}
+#tuningButton:active {
+    background-color:rgb(151, 125, 60)
+}
+#tuningButton:hover {
+    transform:scale(1.1);
+}
+#bigfatdiv {
+    padding:40px;
+}

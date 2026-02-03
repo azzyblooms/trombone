@@ -1,11 +1,23 @@
 let slide = document.getElementById('slide');
 let position = 1;
+let baseFactors = null;
+let tuning = "12tet";
 let activeKey = null;
+const tuningButton = document.getElementById('tuningButton');
 const Bb = new Audio('audio/bb1trombone.mp3');
 Bb.preservesPitch = false;
 
+tuningButton.addEventListener('click', () => {
+    if(tuning === "just") {
+        tuning = "12tet";
+    } else {
+        tuning = "just";
+    }
+
+});
 function getPlaybackRate(key, position, maxPosition = 7) {
-    const baseFactors = {
+    if(tuning == "just") {
+        baseFactors = {
         Shift: 1,
         z: 2,
         x: 3,
@@ -15,20 +27,24 @@ function getPlaybackRate(key, position, maxPosition = 7) {
         n: 7,
         m: 8
         //just intonation
-/*      Shift: 0.5,
-        z: 1,
-        x: 1.498,
-        c: 2,
-        v: 2.52,
-        b: 2.998,
-        n: 3.567,
-        m: 4*/
-        //12-tet
-    };
-    const semitoneLimit = 6;
-    const minFactor = Math.pow(2, -semitoneLimit / 12);
-    const step = 0.125 * 6 / (maxPosition - 1);
-    const factor = Math.pow(minFactor, (position - 1) / (maxPosition - 1));
+        }
+    }
+    if(tuning == "12tet") {
+        baseFactors = {
+        Shift: 0.5 * 2,
+        z: 1 * 2,
+        x: 1.498 * 2,
+        c: 2 * 2,
+        v: 2.52 * 2,
+        b: 2.998 * 2,
+        n: 3.567 * 2,
+        m: 4 * 2
+        //12-TET
+        }
+    }
+
+
+    const factor = Math.pow(Math.pow(2, (-0.5)), (position - 1) / 6);
     return baseFactors[key] * factor;
 }
 
