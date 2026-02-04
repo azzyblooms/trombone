@@ -3,6 +3,8 @@ let position = 1;
 let baseFactors = null;
 let tuning = "12tet";
 let activeKey = null;
+const blip = new Audio(audio/blip.mp3);
+const hover = new Audio(audio/hover.mp3);
 const tuningButton = document.getElementById('tuningButton');
 const Bb = new Audio('audio/bb1trombone.mp3');
 Bb.preservesPitch = false;
@@ -13,8 +15,12 @@ tuningButton.addEventListener('click', () => {
     } else {
         tuning = "just";
     }
+    blip.cloneNote(true).play();
 
 });
+tuningButton.addEventListener('mouseenter', () => {
+    hover.cloneNode(true).play();
+})
 function getPlaybackRate(key, position, maxPosition = 7) {
     if(tuning == "just") {
         baseFactors = {
